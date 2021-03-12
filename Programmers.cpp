@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <list>
+#include <algorithm>
+#include <unordered_set>
+using namespace std;
+
+struct XY
+{
+    XY(long long _x, long long _y) : x(_x), y(_y) {}
+    int x;
+    int y;
+
+    bool operator< (XY _R) const
+    {
+        if (x < _R.x || (x == _R.x && y < _R.y))
+            return true;
+        return false;
+    }
+
+    bool operator== (XY _Other) const
+    {
+        return (x == _Other.x && y == _Other.y);
+    }
+
+    size_t operator () (XY& Hash) const
+    {
+        return Hash.x;
+    }
+};
+
+template<>
+struct hash<XY>
+{
+    uint64_t operator () (XY Hash) const
+    {
+       return ((uint64_t)Hash.x) << 32 | (uint64_t)Hash.y;
+    }
+};
+
+long long solution(vector<vector<int>> rectangles)
+{
+    unordered_set<XY> SaveSet;
+    for (vector<int> iter : rectangles)
+    {
+        for (long long i = iter[0]; i < iter[2]; i++)
+            for (long long j = iter[1]; j < iter[3]; j++)
+                SaveSet.insert(XY(i, j));
+    }
+    return SaveSet.size();
+}
+
+int main()
+{
+    long long a = solution({ {1, 1, 6, 5}, {2, 0, 4, 2}, {2, 4, 5, 7}, {4, 3, 8, 6}, {7, 5, 9, 7} });
+    cout << a;
+}
