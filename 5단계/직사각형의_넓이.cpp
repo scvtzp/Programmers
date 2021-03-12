@@ -6,6 +6,8 @@
 #include <unordered_set>
 using namespace std;
 
+//초기단계. 최대 계산 횟수 10억x10억x10만. unordered_set사용하여 처리 속도는 빠르지만 계산해야 하는 양이 너무 많음.
+
 struct XY
 {
     XY(long long _x, long long _y) : x(_x), y(_y) {}
