@@ -14,13 +14,6 @@ struct XY
     int x;
     int y;
 
-    bool operator< (XY _R) const
-    {
-        if (x < _R.x || (x == _R.x && y < _R.y))
-            return true;
-        return false;
-    }
-
     bool operator== (XY _Other) const
     {
         return (x == _Other.x && y == _Other.y);
@@ -37,7 +30,7 @@ struct hash<XY>
 {
     uint64_t operator () (XY Hash) const
     {
-       return ((uint64_t)Hash.x) << 32 | (uint64_t)Hash.y;
+        return ((uint64_t)Hash.x) << 32 | (uint64_t)Hash.y;
     }
 };
 
